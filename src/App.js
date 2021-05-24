@@ -4,6 +4,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, Card , Alert} from 'react-bootstrap/';
 import axios from 'axios';
+import Weather from './components/Weather';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,12 +14,30 @@ class App extends React.Component {
       foundQuery: '',
       showAlert: false,
       displayCard: false,
-      showMap: false
+      showMap: false,
+      showWeather : false,
+      weatherInfo : {}
     }
   }
+  // getWeatherData = async () => {
+ 
+    
+  //   const url = `http://localhost:3001/weather?searchQuery=${this.props.cityQuery.toLowerCase()}`;
+  //   const weatherData = await axios.get(url);
+    
+    
+  //   this.setState({
+  //     weatherInfo: weatherData.data
+  //   })
 
+  //   return this.state.weatherInfo;
+  // }
   getQuery = async (event) => {
     event.preventDefault();
+    
+    const url = `http://localhost:3001/weather?searchQuery=${this.state.resultQuery.toLowerCase()}`;
+    const weatherData = await axios.get(url);
+
     let locationLink = `https://eu1.locationiq.com/v1/search.php?key=pk.80438a552b9686e0e4dace4a068a30eb&q=${this.state.resultQuery}&format=json`;
     try {
       let city = await axios.get(locationLink);
@@ -26,22 +45,27 @@ class App extends React.Component {
         foundQuery: city.data[0],
         displayCard: true,
         showMap: true,
-        showAlert: false
+        showAlert: false,
+        weatherInfo: weatherData.data,
+        showWeather:true
       })
     }
 
     catch {
       this.setState({
         showAlert: true,
-        showMap: false
+        showMap: false,
+        showWeather : false
       })
     }
+
+    console.log(this.state.weatherInfo);
   }
 
   updateResultQuery = event => {
     this.setState({
       resultQuery: event.target.value
-    })
+    });
     console.log(this.state.resultQuery);
   }
   render() {
@@ -77,6 +101,12 @@ class App extends React.Component {
             </Card.Body>
           </Card>
         }
+        {
+          this.state.showWeather&&
+        <Weather cityQuery={this.state.resultQuery} weatherInfo={this.state.weatherInfo}>
+        </Weather>
+        }
+
       </>
     )
 
