@@ -1,14 +1,15 @@
 import React from 'react';
+import Card from 'react-bootstrap/Card'
 
 export class Weather extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      weatherInfo: this.props.weatherInfo
-    }
-    console.log(this.props.weatherInfo);
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.props = {
+  //     weatherInfo: this.props.weatherInfo
+  //   }
+  //   console.log(this.props.weatherInfo);
+  // }
 
 
   // getWeatherData = async () => {
@@ -19,20 +20,36 @@ export class Weather extends React.Component {
   //   const weatherData = await axios.get(url);
 
 
-  //   this.setState({
+  //   this.setprops({
   //     weatherInfo: weatherData.data
   //   })
 
-  //   console.log(this.state.weatherInfo);
+  //   console.log(this.props.weatherInfo);
   // }
 
 
   render() {
     return (
       <>
-      <p>
-        {this.props.weatherInfo[3].lat}
-      </p>
+      <Card
+    bg={'Warning'.toLowerCase()}
+    text={'Warning'.toLowerCase() === 'light' ? 'dark' : 'white'}
+    style={{ width: '18rem' }}
+    className="mb-2"
+  >
+    <Card.Header>{this.props.weatherInfo[3].lat}    {this.props.weatherInfo[4].lon}</Card.Header>
+    <Card.Body>
+      <Card.Title> Weather</Card.Title>
+      <Card.Text>
+          {this.props.weatherInfo[0].date}<br></br>
+          {this.props.weatherInfo[0].description}<br></br>
+          {this.props.weatherInfo[1].date}<br></br>
+          {this.props.weatherInfo[1].description}<br></br>
+          {this.props.weatherInfo[2].date}<br></br>
+          {this.props.weatherInfo[2].description}<br></br>
+      </Card.Text>
+    </Card.Body>
+  </Card>
       </>
     )
   }

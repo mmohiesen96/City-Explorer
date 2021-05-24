@@ -2,7 +2,7 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Button, Card , Alert} from 'react-bootstrap/';
+import { Form, Button, Card, Alert } from 'react-bootstrap/';
 import axios from 'axios';
 import Weather from './components/Weather';
 
@@ -15,31 +15,19 @@ class App extends React.Component {
       showAlert: false,
       displayCard: false,
       showMap: false,
-      showWeather : false,
-      weatherInfo : {}
+      showWeather: false,
+      weatherInfo: []
     }
   }
-  // getWeatherData = async () => {
- 
-    
-  //   const url = `http://localhost:3001/weather?searchQuery=${this.props.cityQuery.toLowerCase()}`;
-  //   const weatherData = await axios.get(url);
-    
-    
-  //   this.setState({
-  //     weatherInfo: weatherData.data
-  //   })
 
-  //   return this.state.weatherInfo;
-  // }
   getQuery = async (event) => {
     event.preventDefault();
-    
+
     const url = `http://localhost:3001/weather?searchQuery=${this.state.resultQuery.toLowerCase()}`;
-    const weatherData = await axios.get(url);
 
     let locationLink = `https://eu1.locationiq.com/v1/search.php?key=pk.80438a552b9686e0e4dace4a068a30eb&q=${this.state.resultQuery}&format=json`;
     try {
+      const weatherData = await axios.get(url);
       let city = await axios.get(locationLink);
       this.setState({
         foundQuery: city.data[0],
@@ -47,19 +35,20 @@ class App extends React.Component {
         showMap: true,
         showAlert: false,
         weatherInfo: weatherData.data,
-        showWeather:true
+        showWeather: true
       })
+      console.log(this.state.weatherInfo);
     }
-
     catch {
       this.setState({
         showAlert: true,
         showMap: false,
-        showWeather : false
+        showWeather: false
       })
     }
 
-    console.log(this.state.weatherInfo);
+    this.forceUpdate();
+
   }
 
   updateResultQuery = event => {
@@ -71,11 +60,16 @@ class App extends React.Component {
   render() {
     return (
       <>
-              {
+        {
           this.state.showAlert &&
-        <Alert variant='danger'>
-          Enter a proper City name Please !!
+          <Alert variant='danger'>
+            Enter a proper City name Please !!
         </Alert>
+        }
+        {
+          this.state.showWeather &&
+          <Weather cityQuery={this.state.resultQuery} weatherInfo={this.state.weatherInfo}>
+          </Weather>
         }
         <Form onSubmit={this.getQuery}>
           <Form.Group controlId="formBasicEmail">
@@ -100,11 +94,6 @@ class App extends React.Component {
               </Card.Text>
             </Card.Body>
           </Card>
-        }
-        {
-          this.state.showWeather&&
-        <Weather cityQuery={this.state.resultQuery} weatherInfo={this.state.weatherInfo}>
-        </Weather>
         }
 
       </>
