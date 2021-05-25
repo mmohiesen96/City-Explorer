@@ -21,9 +21,9 @@ class App extends React.Component {
   }
   getQuery = async (event) => {
     event.preventDefault();
-    const {REACT_APP_HEROKU} = process.env;
-    console.log(REACT_APP_HEROKU);
-    const url = `https://city-explorer-mo.herokuapp.com/weather?searchQuery=${this.state.resultQuery.toLowerCase()}`;
+    const herokuUrl = process.env.REACT_APP_HEROKU;
+    console.log(herokuUrl);
+    const url = `${herokuUrl}/weather?searchQuery=${this.state.resultQuery.toLowerCase()}`;
 
     let locationLink = `https://eu1.locationiq.com/v1/search.php?key=pk.80438a552b9686e0e4dace4a068a30eb&q=${this.state.resultQuery}&format=json`;
     try {
@@ -66,23 +66,7 @@ class App extends React.Component {
             Enter a proper City name Please !!
         </Alert>
         }
-        {
-          this.state.showWeather &&
-          <Weather cityQuery={this.state.resultQuery} weatherInfo={this.state.weatherInfo}>
-          </Weather>
-        }
-        <Form onSubmit={this.getQuery}>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>City Name</Form.Label>
-            <Form.Control type="text" placeholder="Enter City" onChange={this.updateResultQuery} />
-            <Form.Text className="text-muted">
-              Enter The City You want to Explore
-    </Form.Text>
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Explore!
-  </Button>
-        </Form>{
+{
           this.state.displayCard &&
           <Card style={{ width: '18rem' }}>
             <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=pk.80438a552b9686e0e4dace4a068a30eb&q=&center=${this.state.foundQuery.lat},${this.state.foundQuery.lon}`} />
@@ -95,7 +79,23 @@ class App extends React.Component {
             </Card.Body>
           </Card>
         }
-
+                <Form onSubmit={this.getQuery}>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>City Name</Form.Label>
+            <Form.Control type="text" placeholder="Enter City" onChange={this.updateResultQuery} />
+            <Form.Text className="text-muted">
+              Enter The City You want to Explore
+    </Form.Text>
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Explore!
+  </Button>
+        </Form>
+          {
+          this.state.showWeather &&
+          <Weather cityQuery={this.state.resultQuery} weatherInfo={this.state.weatherInfo} >
+          </Weather>
+        }
       </>
     )
 
