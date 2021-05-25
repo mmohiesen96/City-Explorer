@@ -19,10 +19,10 @@ class App extends React.Component {
       weatherInfo: []
     }
   }
-
   getQuery = async (event) => {
     event.preventDefault();
-
+    const {REACT_APP_HEROKU} = process.env;
+    console.log(REACT_APP_HEROKU);
     const url = `https://city-explorer-mo.herokuapp.com/weather?searchQuery=${this.state.resultQuery.toLowerCase()}`;
 
     let locationLink = `https://eu1.locationiq.com/v1/search.php?key=pk.80438a552b9686e0e4dace4a068a30eb&q=${this.state.resultQuery}&format=json`;
