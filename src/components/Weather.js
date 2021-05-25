@@ -35,7 +35,8 @@ export class Weather extends React.Component {
     bg={'Warning'.toLowerCase()}
     text={'Warning'.toLowerCase() === 'light' ? 'dark' : 'white'}
     style={{ width: '18rem' }}
-    className="mb-2"
+    className="mb-2 weatherCard"
+
   >
     <Card.Header>{this.props.weatherInfo[3].lat}    {this.props.weatherInfo[4].lon}</Card.Header>
     <Card.Body>

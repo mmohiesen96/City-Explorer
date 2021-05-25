@@ -40,10 +40,15 @@
 Form{
   width: 30%;
   margin: 50px auto;
+  clear: both;
 }
 
 .card{
   padding: 0;
   width: 30%;
   margin: 50px auto;
+  display: inline-block;
+}
+
+.weatherCard{
 }
