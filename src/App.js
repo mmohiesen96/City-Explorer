@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, Card, Alert } from 'react-bootstrap/';
 import axios from 'axios';
 import Weather from './components/Weather';
+import Movie from './components/Movies';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,33 +17,42 @@ class App extends React.Component {
       displayCard: false,
       showMap: false,
       showWeather: false,
-      weatherInfo: []
+      weatherInfo: [],
+      showMovies : false,
+      movieInfo : []
     }
   }
   getQuery = async (event) => {
+    this.state.weatherInfo.length = 4;
     event.preventDefault();
     const herokuUrl = process.env.REACT_APP_HEROKU;
-    console.log(herokuUrl);
     const url = `${herokuUrl}/weather?searchQuery=${this.state.resultQuery.toLowerCase()}`;
+    const movieUrl = `${herokuUrl}/movies?searchQuery=${this.state.resultQuery.toLowerCase()}`;
+    console.log(url);
 
     let locationLink = `https://eu1.locationiq.com/v1/search.php?key=pk.80438a552b9686e0e4dace4a068a30eb&q=${this.state.resultQuery}&format=json`;
     try {
+      const movieData = await axios.get(movieUrl);
       const weatherData = await axios.get(url);
       let city = await axios.get(locationLink);
+      console.log(weatherData);
       this.setState({
         foundQuery: city.data[0],
         showMap: true,
         showAlert: false,
         weatherInfo: weatherData.data,
-        showWeather: true
+        showWeather: true,
+        showMovies : true,
+        movieInfo : movieData.data
       })
       console.log(this.state.weatherInfo);
     }
-    catch {
+    catch (err){
       this.setState({
         showAlert: true,
         showMap: false,
-        showWeather: false
+        showWeather: false,
+        showMovies:false
       })
     }
 
@@ -91,8 +101,12 @@ class App extends React.Component {
         </Form>
           {
           this.state.showWeather &&
-          <Weather cityQuery={this.state.resultQuery} weatherInfo={this.state.weatherInfo} >
+          <Weather cityQuery={this.state.resultQuery} weatherInfo={this.state.weatherInfo} cityName = {this.state.resultQuery}>
           </Weather>
+        }
+        {
+          this.state.showMovies &&
+          <Movie movieArr = {this.state.movieInfo} showMovies = {this.state.showMovies}></Movie>
         }
       </>
     )

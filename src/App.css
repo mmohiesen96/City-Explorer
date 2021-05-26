@@ -46,10 +46,29 @@ Form{
 .card{
   padding: 0;
   width: 30%;
+  margin: auto;
+  
+}
+.movieCard{
+  padding: 0;
+  width: 30%;
+  margin: 50px 25px 20px 50px;
   float: left;
   
 }
 .weatherCard{
-  margin-left: 30px;
+  float: left;
+  margin: 50px 20px 50px 60px;
 
+}
+img{
+  height: 250px;
+
+}
+.h5{
+  height: 70px;
+}
+.textCard { 
+  overflow: scroll;
+  height: 150px;
 }
