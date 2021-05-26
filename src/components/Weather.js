@@ -31,26 +31,31 @@ export class Weather extends React.Component {
   render() {
     return (
       <>
-      <Card
-    bg={'Warning'.toLowerCase()}
-    text={'Warning'.toLowerCase() === 'light' ? 'dark' : 'white'}
-    style={{ width: '18rem' }}
-    className="mb-2 weatherCard"
-
-  >
-    <Card.Header>{this.props.weatherInfo[3].lat}    {this.props.weatherInfo[4].lon}</Card.Header>
-    <Card.Body>
-      <Card.Title> Weather</Card.Title>
-      <Card.Text>
-          {this.props.weatherInfo[0].date}<br></br>
-          {this.props.weatherInfo[0].description}<br></br>
-          {this.props.weatherInfo[1].date}<br></br>
-          {this.props.weatherInfo[1].description}<br></br>
-          {this.props.weatherInfo[2].date}<br></br>
-          {this.props.weatherInfo[2].description}<br></br>
-      </Card.Text>
-    </Card.Body>
-  </Card>
+      <h2>
+        Weather for the next 14 days
+      </h2>
+      {
+        this.props.weatherInfo.map((item,key) => {
+          return (
+            <Card
+            key = {key}
+            bg={'Warning'.toLowerCase()}
+            text={'Warning'.toLowerCase() === 'light' ? 'dark' : 'white'}
+            style={{ width: '18rem' }}
+            className="mb-2 weatherCard"
+        
+          >
+            <Card.Header>{item.date}</Card.Header>
+            <Card.Body>
+              <Card.Title>{this.props.cityName}</Card.Title>
+              <Card.Text>
+                {item.description}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+          )
+        })
+      }
       </>
     )
   }
