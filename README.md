@@ -71,3 +71,35 @@ Start time: 4:30
 Finish time: 4:35
 
 Actual time needed to complete: 5 minutes
+
+#### lab 08
+
+Name of feature: F#1
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 3:30
+
+Finish time: 3:55
+
+Actual time needed to complete: 25 minutes
+
+Name of feature:#2 Movies
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 4 : 00
+
+Finish time: 5 : 17
+
+Actual time needed to complete: 1 : 17 hour
+
+Name of feature:#3 deploy
+
+Estimate of time needed to complete: 10 minutes
+
+Start time: 10 : 30
+
+Finish time: 10 : 35
+
+Actual time needed to complete: 5 minutes
