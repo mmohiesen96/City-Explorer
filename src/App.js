@@ -31,7 +31,6 @@ class App extends React.Component {
       let city = await axios.get(locationLink);
       this.setState({
         foundQuery: city.data[0],
-        displayCard: true,
         showMap: true,
         showAlert: false,
         weatherInfo: weatherData.data,
@@ -47,7 +46,6 @@ class App extends React.Component {
       })
     }
 
-    this.forceUpdate();
 
   }
 
@@ -66,8 +64,19 @@ class App extends React.Component {
             Enter a proper City name Please !!
         </Alert>
         }
-{
-          this.state.displayCard &&
+                <Form onSubmit={this.getQuery}>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>City Name</Form.Label>
+            <Form.Control type="text" placeholder="Enter City" onChange={this.updateResultQuery} />
+            <Form.Text className="text-muted">
+              Enter The City You want to Explore
+    </Form.Text>
+          <Button variant="warning" type="submit">
+            Explore!
+  </Button>
+          </Form.Group>
+  {
+          this.state.showMap &&
           <Card style={{ width: '18rem' }}>
             <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=pk.80438a552b9686e0e4dace4a068a30eb&q=&center=${this.state.foundQuery.lat},${this.state.foundQuery.lon}`} />
             <Card.Body>
@@ -79,17 +88,6 @@ class App extends React.Component {
             </Card.Body>
           </Card>
         }
-                <Form onSubmit={this.getQuery}>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>City Name</Form.Label>
-            <Form.Control type="text" placeholder="Enter City" onChange={this.updateResultQuery} />
-            <Form.Text className="text-muted">
-              Enter The City You want to Explore
-    </Form.Text>
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Explore!
-  </Button>
         </Form>
           {
           this.state.showWeather &&
