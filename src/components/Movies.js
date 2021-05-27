@@ -1,9 +1,8 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import Movie from './Movie'
 
 
-export class Movie extends React.Component {
+class Movies extends React.Component {
 
     constructor(props) {
         super(props);
@@ -36,20 +35,11 @@ export class Movie extends React.Component {
                 {
                     this.props.movieArr.map((item, key) => {
                         return (
-                            <Card style={{ width: '18rem' }} className = "movieCard" key = {key}>
-                                <Card.Img variant="top" src={item.image_url} alt = {item.title}/>
-                                <Card.Body>
-                                    <Card.Title>{item.title}</Card.Title>
-                                    <Card.Text className = "textCard">
-                                        Overview : {item.overview}<br></br>
-                                        release date : {item.released_on}<br></br>
-                                        Total votes : {item.total_votes}<br></br>
-                                        Popularity : {item.popularity}<br></br>
-                                        Average votes : {item.average_votes}<br></br>
-                                    </Card.Text>
-                                    <Button variant="primary" href= {item.image_url}>Check the poster</Button>
-                                </Card.Body>
-                            </Card>
+                            <Movie key = {key} src = {item.image_url}  title = {item.title} overview = {item.overview} released_date = {item.released_on}
+                                votes = {item.total_votes}
+                                popularity  = {item.popularity}
+                                average_votes = {item.average_votes} 
+                            ></Movie>
                         )
                     })
                 }
@@ -58,4 +48,4 @@ export class Movie extends React.Component {
     }
 }
 
-export default Movie;
+export default Movies;
