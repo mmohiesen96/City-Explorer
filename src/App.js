@@ -100,7 +100,7 @@ class App extends React.Component {
         }
         </Form>
           {
-          this.state.showWeather &&
+          this.state.weatherInfo.length &&
           <Weather cityQuery={this.state.resultQuery} weatherInfo={this.state.weatherInfo} cityName = {this.state.resultQuery}>
           </Weather>
         }
