@@ -1,6 +1,5 @@
 import React from 'react';
 import WeatherDay from './WeatherDay';
-import Card from 'react-bootstrap/Card'
 
 
 
